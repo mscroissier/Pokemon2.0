@@ -5,15 +5,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import es.studium.Pokemon2.Models.Modelo;
+import es.studium.Pokemon2.Models.ModeloRanking;
 import es.studium.Pokemon2.Views.VistaRanking;
 
 public class ControladorRanking implements WindowListener, ActionListener {
 
 	VistaRanking vistaRanking;
-	Modelo modelo;
+	ModeloRanking modelo;
 	
-	public ControladorRanking(VistaRanking vistaRanking, Modelo modelo) 
+	public ControladorRanking(VistaRanking vistaRanking, ModeloRanking modelo) 
 	{
 		this.vistaRanking = vistaRanking;
 		this.modelo = modelo;

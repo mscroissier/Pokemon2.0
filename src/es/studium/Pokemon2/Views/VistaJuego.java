@@ -91,7 +91,8 @@ public class VistaJuego extends Frame{
 		this.nombrePokemon2 = pokemonP2;
 		
 		
-		// asignar tipos
+		// asignar tipos de pokemons
+		// tambien se asignan los ataques de los pokemons
 		switch (pokemonP1) {
 	        case "Chansey":  tipoPokemon1 = "NORMAL"; ataquesP1 = ataquesChansey;
 	        	break;
@@ -124,44 +125,47 @@ public class VistaJuego extends Frame{
 		setLocationRelativeTo(null);
 		setResizable(false);
 		
+		// asignamos las imagenes de los pokemons
+		// depende de que lado esté el pokeon, se elige una imagen en espejo o no
 		bg = tk.getImage("bg1.jpg");
 		pokemon1 = tk.getImage("pokemons/d-" + pokemonP1 + ".png");
 		pokemon2 = tk.getImage("pokemons/i-" + pokemonP2 + ".png");
 		
-		
+		// EL PANEL DE GAME OVER
 		ganar.setLayout(new FlowLayout());
-		ganar.setSize(180, 100);
-		//ganar.setVisible(true);
-		ganar.setLocationRelativeTo(null);
-		ganar.setResizable(false);
-		
 		ganar.add(lblGanador);
 		ganar.add(btnSalir);
 		ganar.add(btnJugarDenuevo);
+		
+		ganar.setSize(180, 100);
+		ganar.setLocationRelativeTo(null);
+		ganar.setResizable(false);
+		
+		
 		
 		
 	}
 	public void paint(Graphics g)
 	{
+		// rellenar todo de blanco/gris
 		g.setColor(new Color(240,240,240));
 		g.fillRect(0, 0, 1028, 670);
-	// dibujar fondo
+		// dibujar fondo imagen
 		g.drawImage(bg, 0, 0, this);
 		
-		// dibujar personajes
+		// dibujar pokemons
 		g.drawImage(pokemon1, 140, 350, this);
 		g.drawImage(pokemon2, 666, 150, this);
 		
-		// dibuja turno
+		// dibuja turno texto
 		dibujarTurno(g);
 		
-		
-		// dibujar barra
+		// dibujar barras de vida
 		dibujarBarra(g, 100, 320, pokemon1Vida, nombreP1, tipoPokemon1);
 		dibujarBarra(g, 600, 120, pokemon2Vida, nombreP2, tipoPokemon2);
 		
 		
-		// dibujar ataques
+		// dibujar botones de ataques
 		if(turno == true) {
 			dibujarAtaques(g, ataquesP1);
 		} else {
@@ -172,7 +176,7 @@ public class VistaJuego extends Frame{
 		
 	}
 	
-	
+	// dibuja los 4 botones de ataques, segun el array de ataques asignado
 	private void dibujarAtaques(Graphics g, String ataques[]) {
 		Font font = new Font("Comic Sans", Font.PLAIN, 16);
 		g.setFont(font);
@@ -206,12 +210,14 @@ public class VistaJuego extends Frame{
 		g.drawString(ataques[3], 550, 624);
 	}
 
+	// texto de qn es el turno
 	private void dibujarTurno(Graphics g) {
 		
 		Font font = new Font("Comic Sans", Font.PLAIN, 30);
 		g.setFont(font);
 		g.setColor(Color.black);
 		
+		// segun el turno, se pone el nombre del jugador 1 o del 2
 		if(turno == true) {
 			g.drawString("Turno de: " + nombreP1, 30, 70);
 		} else {
@@ -220,6 +226,10 @@ public class VistaJuego extends Frame{
 		
 		
 	}
+	
+	// se dibujan 2 circulos y luego un rectangulo entre estos dos. Todo en negro
+	// se pinta lo mismo, pero más pequeño en blanco
+	// se pinta la barra de vida según el porcentaje de vida
 	private void dibujarBarra(Graphics g, int x, int y, double vida, String nombre, String tipoPokemon12) {
 		// dibujar contorno
 		g.setColor(new Color(50, 50, 50));

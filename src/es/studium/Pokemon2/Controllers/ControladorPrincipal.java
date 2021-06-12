@@ -4,15 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
-import es.studium.Pokemon2.Models.Modelo;
+import es.studium.Pokemon2.Models.ModeloRanking;
 import es.studium.Pokemon2.Models.ModeloJuego;
 import es.studium.Pokemon2.Views.VistaComenzarPartida;
 import es.studium.Pokemon2.Views.VistaPrincipal;
 import es.studium.Pokemon2.Views.VistaRanking;
 
 
-public class ClaseControlador implements WindowListener, ActionListener {
+public class ControladorPrincipal implements WindowListener, ActionListener {
 
 	VistaPrincipal vistaPrincipal;
 	VistaComenzarPartida vistaComenzarPartida;
@@ -21,14 +22,14 @@ public class ClaseControlador implements WindowListener, ActionListener {
 	ModeloJuego jugador2;
 	
 	
-	public ClaseControlador(VistaPrincipal vista)
+	public ControladorPrincipal(VistaPrincipal vista)
 	{
 		vistaPrincipal = vista;
 		vistaPrincipal.addWindowListener(this);
 		
 		vistaPrincipal.btnPartidaNueva.addActionListener(this);
 		vistaPrincipal.btnRanking.addActionListener(this);
-		vistaPrincipal.btnSalir.addActionListener(this);		
+		vistaPrincipal.btnAyuda.addActionListener(this);		
 	}
 	
 
@@ -37,41 +38,33 @@ public class ClaseControlador implements WindowListener, ActionListener {
 		// TODO Auto-generated method stub
 		Object btnPulsado = btn.getSource();
 		
+		// botón de Partida Nueva
 		if (btnPulsado.equals(vistaPrincipal.btnPartidaNueva))
 		{
-			new ControladorDatos(new VistaComenzarPartida()); 
+			// nuevo Modelo Vista-Controlador para la asignación de nombres y pokemons
+			new ControladorComenzarPartida(new VistaComenzarPartida()); 
 		}
 		
-	
-		/*if (btnPulsado.equals(vistaComenzarPartida.btnContinuar))
-		{
-			
-			ModeloJugador nombreJugador1 = VistaComenzarPartida.getJugador1();
-			vistaComenzarPartida.OcultarDialogNombreJugador1();
-			//vistaComenzarPartida.MostrarDialogNombreJugador2();
-			
-		}*/
-		
-		
-		//Salir 
+		// ranking 
 		if (btnPulsado.equals(vistaPrincipal.btnRanking))
 		{
+			// nuevo Modelo Vista-Controlador para el ranking
 			VistaRanking vistaRanking = new VistaRanking();
-			new ControladorRanking(vistaRanking, new Modelo(vistaRanking.taRanking) );
+			new ControladorRanking(vistaRanking, new ModeloRanking(vistaRanking.taRanking) );
 		}
-		if (btnPulsado.equals(vistaPrincipal.btnSalir))
+		// ayuda
+		if (btnPulsado.equals(vistaPrincipal.btnAyuda))
 		{
-			System.exit(0);
+			// esto abre el Manual de Usuario a modo de Ayuda
+			try {
+				Runtime.getRuntime().exec("hh.exe help.chm");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 		
 		
 	}
-
-	public void eventsChoosePlayers() {
-		
-	}
-	
-	
 	
 	@Override
 	public void windowActivated(WindowEvent arg0) {
@@ -114,8 +107,5 @@ public class ClaseControlador implements WindowListener, ActionListener {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public VistaComenzarPartida  getVistaContinuarPartida() {
-		return this.vistaComenzarPartida;
-	}
+
 }

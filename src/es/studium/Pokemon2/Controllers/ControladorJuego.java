@@ -14,6 +14,7 @@ public class ControladorJuego implements WindowListener, ActionListener, MouseLi
 
 	VistaJuego vistaJuego;
 	ModeloJuego modeloJuego;
+	
 	public ControladorJuego(VistaJuego vista, ModeloJuego modeloJuego) {
 		
 		vistaJuego = vista;
@@ -32,23 +33,26 @@ public class ControladorJuego implements WindowListener, ActionListener, MouseLi
 		
 		Object btnPulsado = e.getSource();
 		
+		// botón de salir al ganar/perder
 		if (btnPulsado.equals(vistaJuego.btnSalir))
 		{
 			System.exit(0);
 		}
+		// jugar de nuevo
 		if (btnPulsado.equals(vistaJuego.btnJugarDenuevo))
 		{
 			vistaJuego.setVisible(false);
 		}
 		
 	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
 		int x = e.getX();
 		int y = e.getY();
 				
-		
+		// si hace click en algún de los 4 ataques del pokemon
 		if( (x > 20 && x < 160) && (y > 590 && y < 650) ) 
 		{
 			modeloJuego.clickAtaque(0);

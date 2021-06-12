@@ -31,17 +31,23 @@ public class ModeloJuego {
 	double daño = 0;
 	double potenciador = 0;
 	
+	// cuando haces click en algún botón de ataque
 	public void clickAtaque(int i) {
 
 		String audio = "";
+		
+		// daño de 5 a 20 de manera aletorio
 		daño = 5 + (Math.random() * 15); 
 
+		
+		// según que turno sea, se le quita daño a un pokemón u otro
 		if(vistaJuego.turno == true) {
 			
-			//System.out.println(vistaJuego.ataquesP1[i]);
+			// segun el tipo del pokemon del turno, se le pone un audio
 			audio = vistaJuego.tipoPokemon1;
 			
 			// detectar potenciador
+			// con tipo agua haces más daño a fuego, y con fuego haces más daño a Planta
 			if(vistaJuego.tipoPokemon1 == "AGUA" && vistaJuego.tipoPokemon2 == "FUEGO") {
 				potenciador = 0.20;
 			} else if(vistaJuego.tipoPokemon1 == "FUEGO" && vistaJuego.tipoPokemon2 == "PLANTA") {
@@ -59,10 +65,11 @@ public class ModeloJuego {
 			
 		} else {
 			
-			//System.out.println(vistaJuego.ataquesP2[i]);
+			// segun el tipo del pokemon del turno, se le pone un audio
 			audio = vistaJuego.tipoPokemon2;
 			
 			// detectar potenciador
+			// con tipo agua haces más daño a fuego, y con fuego haces más daño a Planta
 			if(vistaJuego.tipoPokemon1 == "FUEGO" && vistaJuego.tipoPokemon2 == "AGUA") {
 				potenciador = 0.20;
 			} else if(vistaJuego.tipoPokemon1 == "PLANTA" && vistaJuego.tipoPokemon2 == "FUEGO") {
@@ -94,8 +101,7 @@ public class ModeloJuego {
 		
 		
 		
-		
-		System.out.println("./sonidos/"+audio+".wav");
+		// hacer que suene el sonido elegido
 		File sf = new File("./sonidos/"+audio+".wav");
 
 		try {
@@ -122,11 +128,13 @@ public class ModeloJuego {
 			e.printStackTrace();
 		}
 		
+		// pintamos para actualizar los datos, turno y vidas.
 		vistaJuego.repaint();
 		
 		// si gana el juegador 1
 		if(vistaJuego.pokemon1Vida <= 1) {
 			
+			// insertar en la base de datos la partida
 			insertarPartida(vistaJuego.nombreP2, vistaJuego.nombreP1, vistaJuego.nombrePokemon2, (int) vistaJuego.pokemon2Vida);
 			
 			vistaJuego.lblGanador.setText(vistaJuego.nombreP2 + " ha ganado!");
@@ -136,6 +144,7 @@ public class ModeloJuego {
 		// si gana el jugador 2
 		if(vistaJuego.pokemon2Vida <= 0) {
 			
+			// insertar en la base de datos la partida
 			insertarPartida(vistaJuego.nombreP1, vistaJuego.nombreP2, vistaJuego.nombrePokemon1, (int) vistaJuego.pokemon1Vida);
 			
 			vistaJuego.repaint();
@@ -147,6 +156,7 @@ public class ModeloJuego {
 	}
 	
 	BaseDatos con = new BaseDatos();
+	// insertar en la base de datos la partida
 	private void insertarPartida(String nombreGanador, String nombrePerdedor, String nombrePokemon, int tipoPokemon) {
 		System.out.println("ola");
 		try {

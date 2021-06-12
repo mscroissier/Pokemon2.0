@@ -24,8 +24,6 @@ public class VistaRanking extends Frame
 		add(lblRanking);
 		add(taRanking);
 		
-		
-		
 		setSize(500,300);
 		setLocationRelativeTo(null);
 		setResizable(false);

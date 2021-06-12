@@ -6,21 +6,23 @@ import java.sql.SQLException;
 
 import conexion.BaseDatos;
 
-public class Modelo {
+public class ModeloRanking {
 
-	public Modelo(TextArea ta) {
+	public ModeloRanking(TextArea ta) {
 
-		ta.setText("Cargando...");
 		BaseDatos con = new BaseDatos();
+		// parte de arriba de la tabla
 		String texto = "Ganador\t Perdedor\t Turnos\t Pokemon\t Vida Restante\n";
 		
 		try {
-
+			
+			// selecciona según el que menos turnos y más vida tenga
 			String sentencia = "SELECT * FROM partidas ORDER BY n_turnosPartida, vidaPartida DESC LIMIT 10;";
 			con.connection = con.conectar();
 			con.statement = con.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			con.rs = con.statement.executeQuery(sentencia);
 
+			// en un string añadimos los datos de cada fila de la tabla de la base de datos
 			while (con.rs.next()) {
 
 				// añadimos al array los datos
@@ -35,6 +37,8 @@ public class Modelo {
 		} catch (SQLException sqle) {
 			System.out.println("Error 2-" + sqle.getMessage());
 		} finally {
+			
+			// cuadno termina, ese string de texto se le añade al TextArea
 			ta.setText(texto);
 			con.desconectar();
 		}
