@@ -50,14 +50,15 @@ public class ControladorPrincipal implements WindowListener, ActionListener {
 		{
 			// nuevo Modelo Vista-Controlador para el ranking
 			VistaRanking vistaRanking = new VistaRanking();
-			new ControladorRanking(vistaRanking, new ModeloRanking(vistaRanking.taRanking) );
+			ModeloRanking modeloRanking = new ModeloRanking();
+			new ControladorRanking(vistaRanking, modeloRanking );
 		}
 		// ayuda
 		if (btnPulsado.equals(vistaPrincipal.btnAyuda))
 		{
 			// esto abre el Manual de Usuario a modo de Ayuda
 			try {
-				Runtime.getRuntime().exec("hh.exe help.chm");
+				Runtime.getRuntime().exec("hh.exe musuario.chm");
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}

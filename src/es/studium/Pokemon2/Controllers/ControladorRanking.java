@@ -19,6 +19,9 @@ public class ControladorRanking implements WindowListener, ActionListener {
 		this.modelo = modelo;
 		
 		vistaRanking.addWindowListener(this);
+		
+		vistaRanking.taRanking.setText( modelo.cargarRanking() );
+		
 	}
 
 	@Override

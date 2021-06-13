@@ -11,7 +11,7 @@ import java.awt.Image;
 import java.awt.Label;
 import java.awt.Toolkit;
 
-public class VistaJuego extends Frame{
+public class VistaJuego extends Frame {
 
 	private static final long serialVersionUID = 1L;
 	

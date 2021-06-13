@@ -1,6 +1,5 @@
 package es.studium.Pokemon2.Models;
 
-import java.awt.TextArea;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -8,7 +7,13 @@ import conexion.BaseDatos;
 
 public class ModeloRanking {
 
-	public ModeloRanking(TextArea ta) {
+	public ModeloRanking() 
+	{
+		
+	}
+	
+	public String cargarRanking()
+	{
 
 		BaseDatos con = new BaseDatos();
 		// parte de arriba de la tabla
@@ -34,14 +39,15 @@ public class ModeloRanking {
 
 			}
 
-		} catch (SQLException sqle) {
+		} catch (SQLException sqle) 
+		{
 			System.out.println("Error 2-" + sqle.getMessage());
-		} finally {
-			
-			// cuadno termina, ese string de texto se le añade al TextArea
-			ta.setText(texto);
+		} 
+		finally 
+		{
 			con.desconectar();
 		}
-		
+		return texto;
 	}
+	
 }
